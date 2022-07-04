@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-const App = () => {
+const App: React.FC = () => {
   return <Outlet />;
 };
 
