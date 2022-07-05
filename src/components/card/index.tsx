@@ -1,31 +1,41 @@
+import './styles.scss';
 import { useNavigate } from 'react-router-dom';
 import { ICardProps } from './models/ICardProps';
+import { capitalize, startWithZeroes } from '../../utils/commons';
+import colors from '../../utils/colors';
 
 import Tag from '../tag';
 
 const Card: React.FC<ICardProps> = ({ id, name, sprites, types }) => {
   const navigate = useNavigate();
 
-  const artwork =
-    sprites.versions['generation-v']['black-white'].animated.front_default ||
-    sprites.front_default;
+  // const sprite =
+  //   sprites.versions['generation-v']['black-white'].animated.front_default ||
+  //   sprites.front_default;
+
+  const sprite = sprites.other['official-artwork'].front_default;
+
+  const backgroundColor = colors[types[0].type.name];
 
   const handleClick = () => navigate(`/${name}`);
 
   return (
-    <section>
-      <section>
-        <p>#{id}</p>
-        <p>{name}</p>
-        {/* <section>
-          {types.map(({ type }, index) => (
-            <Tag key={index} {...type} />
-          ))}
-        </section> */}
+    <section className="card" style={{ backgroundColor }}>
+      <section className="card__info">
+        <div className="card__header">
+          <p className="card__name">{capitalize(name)}</p>
+          <p className="card__id">#{startWithZeroes(id)}</p>
+        </div>
+
+        <section className="card__tags">
+          {types.map((type: any, index: number) => {
+            return <Tag key={index} {...type.type} />;
+          })}
+        </section>
       </section>
 
       <section className="card__sprite">
-        <img src={artwork} alt="artwork" />
+        <img className="card__img" src={sprite} alt="sprite" />
       </section>
     </section>
   );
