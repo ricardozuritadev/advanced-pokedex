@@ -1,0 +1,19 @@
+@import './abstracts/variables';
+@import './abstracts/mixins';
+
+@import './base/base';
+@import './base/typography';
+@import './base/animations';
+@import './base/utils';
+
+@import '../components/button/styles.scss';
+@import '../components/card/styles.scss';
+@import '../components/header/styles.scss';
+@import '../components/input/styles.scss';
+@import '../components/title/styles.scss';
+
+@import '../pages/_pokemon/styles.scss';
+@import '../pages/auth/styles.scss';
+@import '../pages/home/styles.scss';
+@import '../pages/pokedex/styles.scss';
+@import '../pages/profile/styles.scss';
