@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;500;700;900&display=swap');
 
 *,
 *::after,
@@ -20,4 +20,16 @@ body {
   font-size: $default-font-size;
   line-height: 1.7;
   box-sizing: border-box;
+}
+
+@media only screen and (min-width: 768px) {
+  .pokedex {
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 150rem;
+    }
+  }
 }
