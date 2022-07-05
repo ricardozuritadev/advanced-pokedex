@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import { useNavigate } from 'react-router-dom';
 import { useGetter } from '../../context';
 
@@ -14,7 +16,7 @@ const Pokedex = () => {
   const handleClick = () => navigate('/profile');
 
   return (
-    <section>
+    <section className="pokedex">
       <Header title="Pokédex">
         <p>login</p>
         <p>test@test.com</p>
@@ -22,7 +24,7 @@ const Pokedex = () => {
 
       <Title>Search for Pokémon by name or using the ID</Title>
 
-      <section>
+      <section className="pokedex__list">
         {pokedex.map((pokemon: any) => (
           <Card key={pokemon.id} {...pokemon} />
         ))}

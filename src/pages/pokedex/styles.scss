@@ -1,0 +1,11 @@
+@media only screen and (min-width: 768px) {
+  .pokedex {
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 150rem;
+    }
+  }
+}
