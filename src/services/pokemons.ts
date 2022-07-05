@@ -16,8 +16,13 @@ const getSample = (client: AxiosInstance) => async () => {
   );
 };
 
+const getPokemonById = (client: AxiosInstance) => async (pokemon: any) => {
+  return catchAsync(client.get)(`/pokemon/${pokemon}`);
+};
+
 const pokemons = (client: AxiosInstance) => ({
   getSample: getSample(client),
+  getPokemonById: getPokemonById(client),
 });
 
 export default pokemons;

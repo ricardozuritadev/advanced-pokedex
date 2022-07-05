@@ -20,7 +20,7 @@ const Card: React.FC<ICardProps> = ({ id, name, sprites, types }) => {
   const handleClick = () => navigate(`/${name}`);
 
   return (
-    <section className="card" style={{ backgroundColor }}>
+    <section className="card" style={{ backgroundColor }} onClick={handleClick}>
       <section className="card__info">
         <div className="card__header">
           <p className="card__name">{capitalize(name)}</p>
