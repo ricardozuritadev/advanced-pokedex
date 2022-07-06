@@ -1,9 +1,18 @@
 // FONT
 $default-font-size: 1.6rem;
 
+// SHADOWS
+$sprite-shadow: drop-shadow(2px 4px 2.5px #00000085);
+$card-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+  rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
 // COLORS
+$color-white: #fff;
 $color-gray-dark: #202020;
 $color-grey-light: #f7f7f7;
+$color-red: #ff1f32;
+$color-blue: #1f93ff;
+$color-green: #f3ba00;
 
 $color-type-normal: #d8c6b3;
 $color-type-fire: #eaaf81;

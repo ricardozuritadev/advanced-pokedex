@@ -1,4 +1,3 @@
-import './styles.scss';
 import { TagProps } from './types/TagProps';
 
 const Tag: React.FC<TagProps> = ({ name }) => {

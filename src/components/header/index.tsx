@@ -1,4 +1,3 @@
-import './styles.scss';
 import { HeaderProps } from './types';
 
 const Header: React.FC<HeaderProps> = ({ title, children }) => {

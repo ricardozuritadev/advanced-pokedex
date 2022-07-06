@@ -3,10 +3,16 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 5px;
+  box-shadow: $card-shadow;
   margin: 2.5rem 2rem;
   padding: 0.5rem 1.2rem 1.2rem 1.2rem;
   position: relative;
+  transition: all 0.05s;
   cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   &__header {
     display: flex;
@@ -38,7 +44,7 @@
   &__img {
     width: 12rem;
     clip-path: inset(0 0 12% 0);
-    filter: drop-shadow(2px 4px 2.5px #00000085);
+    filter: $sprite-shadow;
   }
 }
 

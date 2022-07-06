@@ -1,4 +1,3 @@
-import './styles.scss';
 import { useNavigate } from 'react-router-dom';
 import { CardProps } from './types/CardProps';
 import { capitalize, startWithZeroes } from '../../utils/commons';

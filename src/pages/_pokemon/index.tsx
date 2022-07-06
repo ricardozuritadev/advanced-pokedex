@@ -1,32 +1,113 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { Params } from './types';
+import { useEffect, useState } from 'react';
+import { Params, PokemonObj, PokemonSpecies } from './types';
+import { capitalize, startWithZeroes } from '../../utils/commons';
+import services from '../../services';
+import colors from '../../utils/colors';
 
 import Header from '../../components/header';
-import services from '../../services';
+import Title from '../../components/title';
+import Tag from '../../components/tag';
+
+let DESCRIPTION_LANGUAGE = 'en';
 
 const Pokemon = () => {
+  const [pokemonObj, setPokemonObj] = useState<PokemonObj | null>(null);
+  const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies | null>(
+    null
+  );
+  const [fact, setFact] = useState<string>('');
+
   const { pokemon } = useParams<Params>();
 
-  const getPokemon = async () => {
+  const getPokemonId = async () => {
     const result = await services.pokemons.getPokemonById(pokemon);
-
-    console.log(result);
+    setPokemonObj(result);
   };
 
+  const getPokemonSpecies = async () => {
+    const result = await services.pokemons.getPokemonBySpecies(pokemon);
+    setPokemonSpecies(result);
+    setFact(result.flavor_text_entries[0].flavor_text);
+  };
+
+  const facts = pokemonSpecies?.flavor_text_entries
+    .filter((el: any) => el.language.name === DESCRIPTION_LANGUAGE)
+    .map((description: any) => description.flavor_text);
+
   useEffect(() => {
-    getPokemon();
+    getPokemonId();
+    getPokemonSpecies();
   }, []);
+
+  const getRandomFact = () => {
+    setFact(facts && facts[Math.floor(Math.random() * facts.length)]);
+  };
+
+  const backgroundColor = colors[pokemonObj?.types[0].type.name];
 
   const navigate = useNavigate();
 
   const handleClick = () => navigate('/pokedex');
 
   return (
-    <section>
+    <section className="info" style={{ backgroundColor }}>
       <Header title="Pokémon info">
         <p>prueba</p>
       </Header>
+
+      <section className="info__header">
+        <Title>{pokemonObj && capitalize(pokemonObj.name)}</Title>
+        <p className="info__id">
+          #{pokemonObj && startWithZeroes(pokemonObj.id)}
+        </p>
+      </section>
+
+      <section className="info__types">
+        {pokemonObj &&
+          pokemonObj.types.map((type: any, index: number) => {
+            return <Tag key={index} {...type.type} />;
+          })}
+      </section>
+
+      <section className="info__sprite">
+        <img
+          src={pokemonObj?.sprites.other['official-artwork'].front_default}
+          alt="pokemon-sprite"
+          className="info__img"
+        />
+      </section>
+
+      <section className="info__card">
+        <div className="info__menu">
+          <p>About</p>
+          <p>Base Stats</p>
+          <p>Evolution</p>
+          <p>Moves</p>
+        </div>
+
+        {fact ? <p className="info__fact">{fact}</p> : 'Loading...'}
+        <button className="info__randomfact" onClick={getRandomFact}>
+          Get random fact
+        </button>
+
+        <div className="info__pokemon">
+          <div>
+            <p className="info__poke info__poke--red">Height</p>
+            <p>{pokemonObj && pokemonObj.height * 10}cm</p>
+          </div>
+
+          <div>
+            <p className="info__poke info__poke--blue">Weight</p>
+            <p>{pokemonObj && (pokemonObj.weight * 0.1).toFixed(1)}kg</p>
+          </div>
+
+          <div>
+            <p className="info__poke info__poke--green">Habitat</p>
+            <p>{pokemonSpecies && pokemonSpecies.habitat['name']}</p>
+          </div>
+        </div>
+      </section>
     </section>
   );
 };

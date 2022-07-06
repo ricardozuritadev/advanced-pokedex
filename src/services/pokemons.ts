@@ -20,9 +20,14 @@ const getPokemonById = (client: AxiosInstance) => async (pokemon: any) => {
   return catchAsync(client.get)(`/pokemon/${pokemon}`);
 };
 
+const getPokemonBySpecies = (client: AxiosInstance) => async (pokemon: any) => {
+  return catchAsync(client.get)(`/pokemon-species/${pokemon}`);
+};
+
 const pokemons = (client: AxiosInstance) => ({
   getSample: getSample(client),
   getPokemonById: getPokemonById(client),
+  getPokemonBySpecies: getPokemonBySpecies(client),
 });
 
 export default pokemons;
