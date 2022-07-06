@@ -1,12 +1,12 @@
 import './styles.scss';
 import { useNavigate } from 'react-router-dom';
-import { ICardProps } from './models/ICardProps';
+import { CardProps } from './types/CardProps';
 import { capitalize, startWithZeroes } from '../../utils/commons';
 import colors from '../../utils/colors';
 
 import Tag from '../tag';
 
-const Card: React.FC<ICardProps> = ({ id, name, sprites, types }) => {
+const Card: React.FC<CardProps> = ({ id, name, sprites, types }) => {
   const navigate = useNavigate();
 
   // const sprite =

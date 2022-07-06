@@ -1,12 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Params } from './types';
 
 import Header from '../../components/header';
-import { useEffect } from 'react';
 import services from '../../services';
-
-type Params = {
-  pokemon: string;
-};
 
 const Pokemon = () => {
   const { pokemon } = useParams<Params>();
@@ -22,8 +19,6 @@ const Pokemon = () => {
   }, []);
 
   const navigate = useNavigate();
-
-  // console.log(id, name, sprites, types);
 
   const handleClick = () => navigate('/pokedex');
 

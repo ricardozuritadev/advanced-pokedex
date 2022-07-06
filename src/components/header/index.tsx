@@ -1,7 +1,7 @@
 import './styles.scss';
-import { IHeaderProps } from './models';
+import { HeaderProps } from './types';
 
-const Header: React.FC<IHeaderProps> = ({ title, children }) => {
+const Header: React.FC<HeaderProps> = ({ title, children }) => {
   return (
     <section className="header">
       <h2 className="header__title">{title}</h2>
