@@ -87,9 +87,11 @@ const Pokemon = () => {
         </div>
 
         {fact ? <p className="info__fact">{fact}</p> : 'Loading...'}
-        <button className="info__randomfact" onClick={getRandomFact}>
-          Get random fact
-        </button>
+        <div className="info__randomcontainer">
+          <button className="info__randombtn" onClick={getRandomFact}>
+            Get random fact
+          </button>
+        </div>
 
         <div className="info__pokemon">
           <div>
