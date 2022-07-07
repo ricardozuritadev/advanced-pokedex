@@ -1,5 +1,3 @@
-import './styles.scss';
-
 import { useNavigate } from 'react-router-dom';
 import { useGetter } from '../../context';
 

@@ -10,6 +10,7 @@
 
 html {
   font-size: 62.5%;
+  height: 100vh;
 }
 
 body {
@@ -20,6 +21,7 @@ body {
   font-size: $default-font-size;
   line-height: 1.7;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 @media only screen and (min-width: 768px) {
