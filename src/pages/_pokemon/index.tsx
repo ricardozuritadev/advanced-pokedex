@@ -97,16 +97,6 @@ const Pokemon = () => {
           <p>Moves</p>
         </div>
 
-        {fact ? <p className="info__fact">{fact}</p> : 'Loading...'}
-        <div className="info__randomcontainer">
-          <button className="info__randombtn" onClick={getRandomFact}>
-            Get random fact
-          </button>
-          <button className="info__randombtn" onClick={changeLanguage}>
-            Language
-          </button>
-        </div>
-
         <div className="info__pokemon">
           <div>
             <p className="info__poke info__poke--red">Height</p>
@@ -123,6 +113,14 @@ const Pokemon = () => {
             <p>{pokemonSpecies && pokemonSpecies.habitat['name']}</p>
           </div>
         </div>
+
+        <div className="info__randomcontainer">
+          <button className="info__randombtn" onClick={getRandomFact}>
+            Get random fact
+          </button>
+        </div>
+
+        {fact ? <p className="info__fact">{fact}</p> : 'Loading...'}
       </section>
     </section>
   );
