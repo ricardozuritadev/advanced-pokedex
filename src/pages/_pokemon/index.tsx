@@ -9,14 +9,13 @@ import Header from '../../components/header';
 import Title from '../../components/title';
 import Tag from '../../components/tag';
 
-let DESCRIPTION_LANGUAGE = 'en';
-
 const Pokemon = () => {
   const [pokemonObj, setPokemonObj] = useState<PokemonObj | null>(null);
   const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies | null>(
     null
   );
   const [fact, setFact] = useState<string>('');
+  const [factLanguage, setFactLanguage] = useState('en');
 
   const { pokemon } = useParams<Params>();
 
@@ -32,7 +31,7 @@ const Pokemon = () => {
   };
 
   const facts = pokemonSpecies?.flavor_text_entries
-    .filter((el: any) => el.language.name === DESCRIPTION_LANGUAGE)
+    .filter((el: any) => el.language.name === factLanguage)
     .map((description: any) => description.flavor_text);
 
   useEffect(() => {
@@ -42,6 +41,18 @@ const Pokemon = () => {
 
   const getRandomFact = () => {
     setFact(facts && facts[Math.floor(Math.random() * facts.length)]);
+  };
+
+  useEffect(() => {
+    getRandomFact();
+  }, [factLanguage]);
+
+  const changeLanguage = () => {
+    if (factLanguage === 'en') {
+      setFactLanguage('es');
+    } else {
+      setFactLanguage('en');
+    }
   };
 
   const backgroundColor = colors[pokemonObj?.types[0].type.name];
@@ -90,6 +101,9 @@ const Pokemon = () => {
         <div className="info__randomcontainer">
           <button className="info__randombtn" onClick={getRandomFact}>
             Get random fact
+          </button>
+          <button className="info__randombtn" onClick={changeLanguage}>
+            Language
           </button>
         </div>
 
