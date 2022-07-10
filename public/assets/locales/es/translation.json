@@ -1,3 +1,4 @@
 {
-  "login": "iniciar sesión"
+  "login": "iniciar sesión",
+  "days_since_implementation": "{{number}} días"
 }
