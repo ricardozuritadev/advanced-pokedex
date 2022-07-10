@@ -1,4 +1,7 @@
 import './styles/main.scss';
+import './utils/i18next';
+import 'flag-icons';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Context from './context';
