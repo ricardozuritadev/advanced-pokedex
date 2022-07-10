@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Params, PokemonObj, PokemonSpecies } from './types';
 import { capitalize, startWithZeroes } from '../../utils/commons';
+import Cookies from 'js-cookie';
 import services from '../../services';
 import colors from '../../utils/colors';
 
@@ -9,13 +10,14 @@ import Header from '../../components/header';
 import Title from '../../components/title';
 import Tag from '../../components/tag';
 
+const languageCookie = Cookies.get('i18next');
+
 const Pokemon = () => {
   const [pokemonObj, setPokemonObj] = useState<PokemonObj | null>(null);
   const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies | null>(
     null
   );
   const [fact, setFact] = useState<string>('');
-  const [factLanguage, setFactLanguage] = useState('en');
 
   const { pokemon } = useParams<Params>();
 
@@ -31,7 +33,7 @@ const Pokemon = () => {
   };
 
   const facts = pokemonSpecies?.flavor_text_entries
-    .filter((el: any) => el.language.name === factLanguage)
+    .filter((el: any) => el.language.name === languageCookie)
     .map((description: any) => description.flavor_text);
 
   useEffect(() => {
@@ -41,18 +43,6 @@ const Pokemon = () => {
 
   const getRandomFact = () => {
     setFact(facts && facts[Math.floor(Math.random() * facts.length)]);
-  };
-
-  useEffect(() => {
-    getRandomFact();
-  }, [factLanguage]);
-
-  const changeLanguage = () => {
-    if (factLanguage === 'en') {
-      setFactLanguage('es');
-    } else {
-      setFactLanguage('en');
-    }
   };
 
   const backgroundColor = colors[pokemonObj?.types[0].type.name];
