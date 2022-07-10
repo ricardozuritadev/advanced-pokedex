@@ -1,3 +1,3 @@
-# auth-flow-client-side
+# Advanced Pokédex
 
-Client-side authorization and authentication system with React.js, Typescript and SASS
+Advanced Pokédex. You can register as a Pokémon trainer to save favorite Pokémons and view their complete stats. Developed using React, TypeScript and Sass.
