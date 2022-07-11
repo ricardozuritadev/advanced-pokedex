@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -5,8 +6,16 @@ import Input from '../../../components/input';
 import Button from '../../../components/button';
 
 const Register = () => {
+  const submitRef = useRef<any>(null);
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+
   const handleClick = () => navigate('/login');
+  const handleButton = () => submitRef.current.click();
+
+  const onSubmit = (data: any) => {
+    console.info('> data: ', data);
+  };
 
   return (
     <section>
@@ -14,14 +23,27 @@ const Register = () => {
         <img src="" alt="" />
       </section>
 
-      <section>
-        <Input type="text" placeholder="email" />
-        <Input type="text" placeholder="username" />
-        <Input type="password" placeholder="password" />
-      </section>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input type="text" placeholder="email" fn={() => register('email')} />
+        <Input
+          type="text"
+          placeholder="username"
+          fn={() => register('username')}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          fn={() => register('password')}
+        />
+        <input
+          ref={submitRef}
+          type="submit"
+          style={{ position: 'absolute', visibility: 'hidden' }}
+        />
+      </form>
 
       <section>
-        <Button text="Sign up" handleClick={} />
+        <Button handleClick={handleButton} text="Sign up" />
         <p>Already have an account?</p>
         <p onClick={handleClick}>Log in here</p>
       </section>
