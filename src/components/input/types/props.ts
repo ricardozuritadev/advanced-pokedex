@@ -5,4 +5,5 @@ export type InputProps = {
   small?: string;
   placeholder: string;
   type: HTMLInputTypeAttribute;
+  fn: any;
 };
