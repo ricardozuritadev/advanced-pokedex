@@ -1,51 +1,49 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Params, PokemonObj, PokemonSpecies } from './types';
+import { useState, useEffect } from 'react';
+import { useGetter } from '../../context/';
+import { Params } from './types';
 import { capitalize, startWithZeroes } from '../../utils/commons';
 import Cookies from 'js-cookie';
-import services from '../../services';
 import colors from '../../utils/colors';
 
 import Header from '../../components/header';
 import Title from '../../components/title';
 import Tag from '../../components/tag';
 
+// Get "i18next" cookie with language code from cookies
 const languageCookie = Cookies.get('i18next');
 
 const Pokemon = () => {
-  const [pokemonObj, setPokemonObj] = useState<PokemonObj | null>(null);
-  const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies | null>(
-    null
-  );
+  const { pokemon } = useParams<Params>();
+  const { pokedex, species } = useGetter();
   const [fact, setFact] = useState<string>('');
 
-  const { pokemon } = useParams<Params>();
+  // Find pokemon from context by id or name
+  const { id, name, sprites, height, weight, types } = pokedex.find(
+    ({ id, name }: any) => id === pokemon || name === pokemon
+  );
 
-  const getPokemonId = async () => {
-    const result = await services.pokemons.getPokemonById(pokemon);
-    setPokemonObj(result);
-  };
+  // Find species from context by id or name
+  const { flavor_text_entries, habitat } = species.find(
+    ({ id, name }: any) => id === pokemon || name === pokemon
+  );
 
-  const getPokemonSpecies = async () => {
-    const result = await services.pokemons.getPokemonBySpecies(pokemon);
-    setPokemonSpecies(result);
-    setFact(result.flavor_text_entries[0].flavor_text);
-  };
-
-  const facts = pokemonSpecies?.flavor_text_entries
+  // Get facts array with all Pokémon facts
+  const facts = flavor_text_entries
     .filter((el: any) => el.language.name === languageCookie)
     .map((description: any) => description.flavor_text);
 
-  useEffect(() => {
-    getPokemonId();
-    getPokemonSpecies();
-  }, []);
-
+  // Get random fact from "facts" array
   const getRandomFact = () => {
-    setFact(facts && facts[Math.floor(Math.random() * facts.length)]);
+    setFact(facts[Math.floor(Math.random() * facts.length)]);
   };
 
-  const backgroundColor = colors[pokemonObj?.types[0].type.name];
+  // Call "getRandomFact()" function to fill "fact" state with one fact at the first page render
+  useEffect(() => {
+    getRandomFact();
+  }, []);
+
+  const backgroundColor = colors[types[0].type.name];
 
   const navigate = useNavigate();
 
@@ -58,22 +56,19 @@ const Pokemon = () => {
       </Header>
 
       <section className="info__header">
-        <Title>{pokemonObj && capitalize(pokemonObj.name)}</Title>
-        <p className="info__id">
-          #{pokemonObj && startWithZeroes(pokemonObj.id)}
-        </p>
+        <Title>{capitalize(name)}</Title>
+        <p className="info__id">#{startWithZeroes(id)}</p>
       </section>
 
       <section className="info__types">
-        {pokemonObj &&
-          pokemonObj.types.map((type: any, index: number) => {
-            return <Tag key={index} {...type.type} />;
-          })}
+        {types.map((type: any, index: number) => {
+          return <Tag key={index} {...type.type} />;
+        })}
       </section>
 
       <section className="info__sprite">
         <img
-          src={pokemonObj?.sprites.other['official-artwork'].front_default}
+          src={sprites.other['official-artwork'].front_default}
           alt="pokemon-sprite"
           className="info__img"
         />
@@ -90,17 +85,17 @@ const Pokemon = () => {
         <div className="info__pokemon">
           <div>
             <p className="info__poke info__poke--red">Height</p>
-            <p>{pokemonObj && pokemonObj.height * 10}cm</p>
+            <p>{height * 10}cm</p>
           </div>
 
           <div>
             <p className="info__poke info__poke--blue">Weight</p>
-            <p>{pokemonObj && (pokemonObj.weight * 0.1).toFixed(1)}kg</p>
+            <p>{(weight * 0.1).toFixed(1)}kg</p>
           </div>
 
           <div>
             <p className="info__poke info__poke--green">Habitat</p>
-            <p>{pokemonSpecies && pokemonSpecies.habitat['name']}</p>
+            <p>{habitat['name']}</p>
           </div>
         </div>
 
