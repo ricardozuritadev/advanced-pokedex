@@ -3,16 +3,19 @@ import { createContext, useContext } from 'react';
 interface IContext {
   user: object;
   pokedex: any;
+  species: any;
   setUser: () => void;
   setPokedex: () => void;
+  setSpecies: () => void;
 }
 
 const Context: any = createContext(null);
 
 export const useGetter = () => {
-  const { user, setUser, pokedex, setPokedex } = useContext<IContext>(Context);
+  const { pokedex, setPokedex, species, setSpecies } =
+    useContext<IContext>(Context);
 
-  return { user, setUser, pokedex, setPokedex };
+  return { pokedex, setPokedex, species, setSpecies };
 };
 
 export default Context;
