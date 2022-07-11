@@ -3,10 +3,11 @@ import { useEffect } from 'react';
 import { useGetter } from './context';
 
 const App: React.FC = () => {
-  const { setPokedex } = useGetter();
+  const { setPokedex, setSpecies } = useGetter();
 
   useEffect(() => {
     setPokedex();
+    setSpecies();
   }, []);
 
   return <Outlet />;

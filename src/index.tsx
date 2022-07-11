@@ -16,20 +16,20 @@ import Register from './pages/auth/register';
 import Profile from './pages/profile';
 
 const Container = () => {
-  const [pokedex, setPokedex] = usePokedex();
+  const [pokedex, setPokedex, species, setSpecies] = usePokedex();
 
   return (
-    <Context.Provider value={{ pokedex, setPokedex }}>
+    <Context.Provider value={{ pokedex, setPokedex, species, setSpecies }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
             <Route path="pokedex" element={<Pokedex />} />
-            <Route path=":pokemon" element={<Pokemon />} />
             <Route path="profile" element={<Profile />} />
+            <Route path=":pokemon" element={<Pokemon />} />
           </Route>
 
-          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </Context.Provider>
