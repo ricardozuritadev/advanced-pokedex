@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useRegister } from '../../../hooks';
+import images from '../../../utils/imgLoader';
 
 import Input from '../../../components/input';
 import Button from '../../../components/button';
@@ -26,6 +27,15 @@ const Register = () => {
       </section>
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        <section>
+          <picture>
+            <img src={images.maleTrainer} alt="Male-trainer" />
+          </picture>
+          <picture>
+            <img src={images.femaleTrainer} alt="Female-trainer" />
+          </picture>
+        </section>
+
         <Input type="text" placeholder="email" fn={() => register('email')} />
         <Input
           type="text"
