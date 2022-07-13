@@ -17,3 +17,12 @@ export const usePokedex = () => {
 
   return [pokedex, getPokedex, species, getSpecies];
 };
+
+export const useRegister = ({ onSuccess }: any) => {
+  const register = async (data: any) => {
+    const result = await services.auth.register(data);
+    result.success && onSuccess();
+  };
+
+  return register;
+};
