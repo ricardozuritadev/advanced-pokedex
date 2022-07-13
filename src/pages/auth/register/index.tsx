@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useRegister } from '../../../hooks';
 
 import Input from '../../../components/input';
 import Button from '../../../components/button';
@@ -9,12 +10,13 @@ const Register = () => {
   const submitRef = useRef<any>(null);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const signup = useRegister({ onSuccess: () => navigate('/login') });
 
   const handleClick = () => navigate('/login');
   const handleButton = () => submitRef.current.click();
 
   const onSubmit = (data: any) => {
-    console.info('> data: ', data);
+    signup(data);
   };
 
   return (
