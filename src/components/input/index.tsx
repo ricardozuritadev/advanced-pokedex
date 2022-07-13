@@ -1,6 +1,11 @@
 import { InputProps } from './types';
 
-const Input: React.FC<InputProps> = ({ position, small, fn, ...props }) => {
+const Input: React.FC<InputProps> = ({
+  position,
+  small,
+  fn = () => {},
+  ...props
+}) => {
   return (
     <section
       className={`input ${position && `input--${position}`} ${
